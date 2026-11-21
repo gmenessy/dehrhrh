@@ -1,0 +1,42 @@
+{
+  "nachweise": [
+    {
+      "id": "ausweis",
+      "aussage": "Eine Kopie des Personalausweises oder Reisepasses liegt bei.",
+      "nachforderung": "Kopie Ihres Personalausweises oder Reisepasses (Vorder- und Rückseite)"
+    },
+    {
+      "id": "unterschrift",
+      "aussage": "Die Anzeige ist von der anzeigenden Person unterschrieben.",
+      "nachforderung": "die unterschriebene Gewerbeanzeige"
+    },
+    {
+      "id": "hr_auszug",
+      "aussage": "Ein Auszug aus dem Handelsregister liegt bei.",
+      "nachforderung": "Auszug aus dem Handelsregister"
+    }
+  ],
+  "pflichtfelder": {
+    "type": "object",
+    "required": [
+      "name",
+      "taetigkeit",
+      "betriebsbeginn"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Name der anzeigenden Person"
+      },
+      "taetigkeit": {
+        "type": "string",
+        "description": "angemeldete Tätigkeit"
+      },
+      "betriebsbeginn": {
+        "type": "string",
+        "format": "date",
+        "description": "Datum des Betriebsbeginns"
+      }
+    }
+  }
+}

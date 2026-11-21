@@ -1,0 +1,4 @@
+{"id": "ga-001", "route": "extrahieren", "dateien": ["faelle/ga-001.pdf"], "parameter": {"schema": "<Inhalt von gewerbeanzeige.schema.json>"}, "erwartet": {"name": "Erika Musterfrau", "betriebsbeginn": "2026-03-01", "plz_betrieb": "73728", "email": null}}
+{"id": "post-014", "route": "klassifizieren", "dateien": ["faelle/post-014.pdf"], "parameter": {"optionen": "<Inhalt von dokumenttypen.json>"}, "erwartet": "widerspruch"}
+{"id": "ga-007", "route": "pruefen", "dateien": ["faelle/ga-007.pdf"], "parameter": {"checkliste": "<Inhalt von gewerbeanzeige.checkliste.json>"}, "erwartet": {"ausweis": true, "unterschrift": true, "hr_auszug": false}}
+{"id": "ein-003", "route": "aktenplan", "dateien": ["faelle/ein-003.pdf"], "parameter": {"aktenplan": "<Inhalt von aktenplan.beispiel.json>"}, "erwartet": "122"}

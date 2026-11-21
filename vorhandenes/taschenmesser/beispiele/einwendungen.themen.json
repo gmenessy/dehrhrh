@@ -1,0 +1,26 @@
+[
+ {
+  "id": "verkehr",
+  "beschreibung": "Verkehr, Parken, Lärm durch Verkehr"
+ },
+ {
+  "id": "natur",
+  "beschreibung": "Bäume, Grünflächen, Artenschutz, Klima"
+ },
+ {
+  "id": "bauhoehe",
+  "beschreibung": "Gebäudehöhe, Dichte, Verschattung, Ortsbild"
+ },
+ {
+  "id": "wasser",
+  "beschreibung": "Starkregen, Hochwasser, Versickerung"
+ },
+ {
+  "id": "infrastruktur",
+  "beschreibung": "Schulen, Kitas, Versorgung"
+ },
+ {
+  "id": "verfahren",
+  "beschreibung": "Kritik am Verfahren, Beteiligung, Fristen"
+ }
+]

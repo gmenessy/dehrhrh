@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Vor- und Nachname der Person"
+    },
+    "geburtsdatum": {
+      "type": "string",
+      "format": "date",
+      "description": "Geburtsdatum"
+    },
+    "anschrift": {
+      "type": "string",
+      "description": "Straße und Hausnummer der Wohnanschrift"
+    },
+    "brutto": {
+      "type": "number",
+      "format": "betrag",
+      "description": "monatliches Bruttoeinkommen in Euro",
+      "toleranz": 1
+    }
+  }
+}

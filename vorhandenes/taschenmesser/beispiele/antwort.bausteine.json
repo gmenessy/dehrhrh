@@ -1,0 +1,35 @@
+[
+  {
+    "id": "anrede",
+    "text": "Sehr geehrte{{#frau}} Frau{{/frau}}{{^frau}}r Herr{{/frau}} {{name}},",
+    "immer": true
+  },
+  {
+    "id": "dank",
+    "text": "vielen Dank für Ihr Schreiben vom {{datum|datum}}.",
+    "immer": true
+  },
+  {
+    "id": "widerspruch",
+    "titel": "Eingangsbestätigung Widerspruch",
+    "wann": "Das Schreiben legt Widerspruch gegen einen Bescheid ein.",
+    "text": "Ihren Widerspruch gegen den Bescheid mit dem Aktenzeichen {{aktenzeichen}} haben wir erhalten. Wir prüfen ihn und melden uns."
+  },
+  {
+    "id": "ratenzahlung",
+    "titel": "Ratenzahlung",
+    "wann": "Die Person bittet um Ratenzahlung oder Stundung.",
+    "text": "Eine Zahlung in Raten ist grundsätzlich möglich. Bitte teilen Sie uns mit, welchen Betrag Sie monatlich zahlen können."
+  },
+  {
+    "id": "akteneinsicht",
+    "titel": "Akteneinsicht",
+    "wann": "Die Person möchte Einsicht in die Akte oder Unterlagen.",
+    "text": "Gern können Sie die Akte nach vorheriger Terminabsprache bei uns einsehen."
+  },
+  {
+    "id": "gruss",
+    "text": "Mit freundlichen Grüßen\n\n{{sachbearbeitung}}",
+    "immer": true
+  }
+]

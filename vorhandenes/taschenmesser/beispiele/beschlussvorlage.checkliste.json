@@ -1,0 +1,24 @@
+{
+  "nachweise": [
+    {
+      "id": "sachverhalt",
+      "aussage": "Die Vorlage enthält eine Darstellung des Sachverhalts.",
+      "nachforderung": "Abschnitt Sachverhalt"
+    },
+    {
+      "id": "finanzen",
+      "aussage": "Die Vorlage beziffert die finanziellen Auswirkungen oder stellt fest, dass keine entstehen.",
+      "nachforderung": "Abschnitt Finanzielle Auswirkungen"
+    },
+    {
+      "id": "beschlussantrag",
+      "aussage": "Die Vorlage enthält einen ausformulierten Beschlussantrag.",
+      "nachforderung": "Beschlussantrag"
+    },
+    {
+      "id": "klima",
+      "aussage": "Die Vorlage bewertet die Auswirkungen auf Klima und Nachhaltigkeit.",
+      "nachforderung": "Abschnitt Klimarelevanz"
+    }
+  ]
+}

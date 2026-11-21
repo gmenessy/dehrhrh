@@ -1,0 +1,26 @@
+[
+  {
+    "id": "32",
+    "beschreibung": "Bürger- und Ordnungsamt: Gewerbe, Gaststätten, Ordnungswidrigkeiten, Meldewesen"
+  },
+  {
+    "id": "20",
+    "beschreibung": "Kämmerei: Steuern, Gebühren, Zahlungen, Mahnungen"
+  },
+  {
+    "id": "50",
+    "beschreibung": "Sozialamt: Wohngeld, Hilfe zum Lebensunterhalt, Bildung und Teilhabe"
+  },
+  {
+    "id": "60",
+    "beschreibung": "Baurechtsamt: Bauanträge, Baugenehmigungen, Bauvoranfragen"
+  },
+  {
+    "id": "66",
+    "beschreibung": "Tiefbauamt: Straßen, Sondernutzung, Baustellen, Winterdienst"
+  },
+  {
+    "id": "10",
+    "beschreibung": "Hauptamt: Personal, Organisation, Gremien, Beschwerden allgemein"
+  }
+]

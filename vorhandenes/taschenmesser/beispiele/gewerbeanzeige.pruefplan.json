@@ -1,0 +1,105 @@
+{
+  "felder": {
+    "type": "object",
+    "properties": {
+      "taetigkeit": {
+        "type": "string",
+        "description": "angemeldete Tätigkeit"
+      },
+      "betriebsbeginn": {
+        "type": "string",
+        "format": "date",
+        "description": "Datum des Betriebsbeginns"
+      },
+      "anzahl_beschaeftigte": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Zahl der Beschäftigten"
+      },
+      "plz": {
+        "type": "string",
+        "format": "plz",
+        "description": "Postleitzahl der Betriebsstätte"
+      }
+    }
+  },
+  "nachweise": [
+    {
+      "id": "unterschrift",
+      "aussage": "Die Anzeige ist von der anzeigenden Person unterschrieben."
+    },
+    {
+      "id": "erlaubnis",
+      "aussage": "Eine gewerberechtliche Erlaubnis (z. B. nach § 34c oder § 33c GewO) liegt bei."
+    }
+  ],
+  "schwellen": {
+    "gelb": 2,
+    "rot": 5
+  },
+  "regeln": [
+    {
+      "id": "ko_erlaubnispflichtig",
+      "wenn": {
+        "alle": [
+          {
+            "feld": "taetigkeit",
+            "op": "enthaelt",
+            "wert": "Spielhalle"
+          },
+          {
+            "nachweis": "erlaubnis",
+            "status": "fehlt"
+          }
+        ]
+      },
+      "ko": true,
+      "hinweis": "Spielhalle ohne Erlaubnis"
+    },
+    {
+      "id": "unterschrift_fehlt",
+      "wenn": {
+        "nachweis": "unterschrift",
+        "status": "fehlt"
+      },
+      "gewicht": 3,
+      "hinweis": "Anzeige nicht unterschrieben"
+    },
+    {
+      "id": "rueckwirkend",
+      "wenn": {
+        "feld": "betriebsbeginn",
+        "op": "<",
+        "wert": "heute-90"
+      },
+      "gewicht": 2,
+      "hinweis": "Betriebsbeginn mehr als 90 Tage zurück (verspätete Anzeige?)"
+    },
+    {
+      "id": "viele_beschaeftigte",
+      "wenn": {
+        "feld": "anzahl_beschaeftigte",
+        "op": ">=",
+        "wert": 50
+      },
+      "gewicht": 1,
+      "hinweis": "50 oder mehr Beschäftigte"
+    },
+    {
+      "id": "plz_ausserhalb",
+      "wenn": {
+        "feld": "plz",
+        "op": "nicht_in",
+        "wert": [
+          "73728",
+          "73730",
+          "73732",
+          "73733",
+          "73734"
+        ]
+      },
+      "gewicht": 2,
+      "hinweis": "Betriebsstätte möglicherweise nicht in unserer Zuständigkeit"
+    }
+  ]
+}

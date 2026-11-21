@@ -1,0 +1,8 @@
+Sehr geehrte{{#frau}} Frau{{/frau}}{{^frau}}r Herr{{/frau}} {{name}},
+
+auf Ihre Anzeige vom {{eingang|datum}} setzen wir eine Verwaltungsgebühr von {{gebuehr|betrag}} fest.
+{{#ermaessigung}}Die Ermäßigung für gemeinnützige Träger ist bereits berücksichtigt.
+{{/ermaessigung}}Bitte überweisen Sie den Betrag bis zum {{faellig|datum}} unter Angabe des Aktenzeichens {{az}}.
+
+Mit freundlichen Grüßen
+{{sachbearbeitung}}

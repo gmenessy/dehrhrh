@@ -1,0 +1,26 @@
+[
+  {
+    "id": "4211",
+    "beschreibung": "Unterhaltung Grundstücke und bauliche Anlagen"
+  },
+  {
+    "id": "4221",
+    "beschreibung": "Unterhaltung Straßen, Wege, Plätze"
+  },
+  {
+    "id": "4431",
+    "beschreibung": "Geschäftsausgaben, Bürobedarf, Druck"
+  },
+  {
+    "id": "4432",
+    "beschreibung": "Fachliteratur, Zeitschriften"
+  },
+  {
+    "id": "4421",
+    "beschreibung": "Mieten, Pachten, Leasing"
+  },
+  {
+    "id": "4291",
+    "beschreibung": "sonstige Dienstleistungen"
+  }
+]

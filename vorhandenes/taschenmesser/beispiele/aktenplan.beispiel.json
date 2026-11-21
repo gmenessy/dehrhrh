@@ -1,0 +1,76 @@
+[
+ {
+  "az": "0",
+  "titel": "Allgemeine Verwaltung"
+ },
+ {
+  "az": "00",
+  "titel": "Gemeindeverfassung, Gremien"
+ },
+ {
+  "az": "004",
+  "titel": "Gemeinderat, Ausschüsse",
+  "beschreibung": "Sitzungen, Vorlagen, Protokolle"
+ },
+ {
+  "az": "02",
+  "titel": "Organisation"
+ },
+ {
+  "az": "022",
+  "titel": "Geschäftsverteilung"
+ },
+ {
+  "az": "1",
+  "titel": "Öffentliche Sicherheit und Ordnung"
+ },
+ {
+  "az": "12",
+  "titel": "Gewerbe"
+ },
+ {
+  "az": "122",
+  "titel": "Gewerbeanzeigen",
+  "beschreibung": "An-, Um- und Abmeldungen"
+ },
+ {
+  "az": "123",
+  "titel": "Gaststätten",
+  "beschreibung": "Erlaubnisse, Sperrzeiten"
+ },
+ {
+  "az": "13",
+  "titel": "Ordnungswidrigkeiten"
+ },
+ {
+  "az": "6",
+  "titel": "Bauwesen"
+ },
+ {
+  "az": "62",
+  "titel": "Bauleitplanung",
+  "beschreibung": "Flächennutzungs- und Bebauungspläne, Beteiligung"
+ },
+ {
+  "az": "63",
+  "titel": "Baurecht",
+  "beschreibung": "Bauanträge, Baugenehmigungen"
+ },
+ {
+  "az": "66",
+  "titel": "Straßen",
+  "beschreibung": "Bau, Unterhaltung, Sondernutzung"
+ },
+ {
+  "az": "9",
+  "titel": "Finanzen"
+ },
+ {
+  "az": "92",
+  "titel": "Steuern und Abgaben"
+ },
+ {
+  "az": "94",
+  "titel": "Zahlungsverkehr, Rechnungen"
+ }
+]

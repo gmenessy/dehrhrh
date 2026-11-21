@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "required": ["name", "anschrift_betrieb", "taetigkeit", "betriebsbeginn"],
+  "properties": {
+    "art_der_anzeige": {"type": "string", "enum": ["Anmeldung", "Ummeldung", "Abmeldung"], "description": "Art der Gewerbeanzeige"},
+    "name": {"type": "string", "description": "Vor- und Nachname der anzeigenden Person"},
+    "geburtsdatum": {"type": "string", "format": "date", "description": "Geburtsdatum der anzeigenden Person"},
+    "anschrift_betrieb": {"type": "string", "description": "Anschrift der Betriebsstätte"},
+    "plz_betrieb": {"type": "string", "format": "plz", "description": "Postleitzahl der Betriebsstätte"},
+    "taetigkeit": {"type": "string", "description": "angemeldete Tätigkeit"},
+    "betriebsbeginn": {"type": "string", "format": "date", "description": "Datum des Beginns der Tätigkeit"},
+    "anzahl_beschaeftigte": {"type": "integer", "minimum": 0, "description": "Zahl der Beschäftigten"},
+    "email": {"type": "string", "format": "email", "description": "E-Mail-Adresse für Rückfragen"}
+  }
+}

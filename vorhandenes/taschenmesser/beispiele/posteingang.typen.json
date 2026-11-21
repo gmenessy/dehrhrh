@@ -1,0 +1,26 @@
+[
+  {
+    "id": "gewerbeanzeige",
+    "beschreibung": "Gewerbe-An-, Um- oder Abmeldung (Formular GewA)"
+  },
+  {
+    "id": "ausweis",
+    "beschreibung": "Personalausweis oder Reisepass"
+  },
+  {
+    "id": "hr_auszug",
+    "beschreibung": "Auszug aus dem Handelsregister"
+  },
+  {
+    "id": "erlaubnis",
+    "beschreibung": "gewerberechtliche Erlaubnis oder Genehmigung"
+  },
+  {
+    "id": "vollmacht",
+    "beschreibung": "Vollmacht"
+  },
+  {
+    "id": "sonstiges",
+    "beschreibung": "sonstiges Begleitschreiben oder Anlage"
+  }
+]

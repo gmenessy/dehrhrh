@@ -1,0 +1,52 @@
+# Taschenmesser: ein Dienst. Die Modelle laufen als vorhandene vLLM-Profile (eigener GPU-Host)
+# oder optional hier mit dem Profil "gpu": docker compose --profile gpu up -d
+
+x-hart: &hart
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  restart: unless-stopped
+
+services:
+  taschenmesser:
+    <<: *hart
+    build: .
+    image: registry.intern/plattform/taschenmesser:1.4.0
+    ports: ["8080:8080"]               # nur hinter dem Gateway des Rechenzentrums veröffentlichen
+    tmpfs: ["/tmp:size=512m"]
+    mem_limit: 4g
+    pids_limit: 256
+    environment:
+      LLM_URL: ${LLM_URL:-http://vllm-llm:8000/v1}
+      LLM_MODEL: ${LLM_MODEL:-gemma-4-31b}
+      DECISION_URL: ${DECISION_URL:-}    # leer = das LLM beantwortet Auswahlfragen über Logprobs
+      DECISION_MODEL: ${DECISION_MODEL:-}
+      SCHWAERZEN_NER: ${SCHWAERZEN_NER:-llm}        # regel = ohne Modellaufruf, Namen nur mit Auslöser
+      VLLM_STRUCTURED: ${VLLM_STRUCTURED:-guided}   # neuere vLLM: structured_outputs
+      API_KEYS: ${API_KEYS:?API_KEYS setzen, z. B. musterhausen:<schluessel>}
+      MAX_MB: "20"
+      MAX_SEITEN: "100"
+      KONTEXT_ZEICHEN: "40000"
+      JA_AB: "0.85"
+      NEIN_BIS: "0.15"
+      AUTO_AB: "0.80"
+
+  # Optional: Modelle auf demselben Host. Werte wie in der Spezifikation V5.0 (Abschnitt 4).
+  vllm-llm:
+    profiles: ["gpu"]
+    image: ${VLLM_IMAGE:-registry.intern/vllm/vllm-openai@sha256:DIGEST_EINTRAGEN}
+    command: ["--model", "/models/gemma-4-31b", "--served-model-name", "gemma-4-31b",
+              "--gpu-memory-utilization", "0.6", "--max-model-len", "16384", "--max-num-seqs", "16", "--seed", "42"]
+    volumes: ["/srv/models:/models:ro"]
+    deploy: { resources: { reservations: { devices: [ { capabilities: [gpu], count: 1 } ] } } }
+    restart: unless-stopped
+
+  vllm-decision:
+    profiles: ["gpu"]
+    image: ${VLLM_IMAGE:-registry.intern/vllm/vllm-openai@sha256:DIGEST_EINTRAGEN}
+    command: ["--model", "/models/clef-flash-9b", "--served-model-name", "clef-flash",
+              "--gpu-memory-utilization", "0.3", "--max-model-len", "4096", "--max-num-seqs", "32", "--enable-prefix-caching"]
+    volumes: ["/srv/models:/models:ro"]
+    deploy: { resources: { reservations: { devices: [ { capabilities: [gpu], count: 1 } ] } } }
+    depends_on: [vllm-llm]
+    restart: unless-stopped

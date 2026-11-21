@@ -1,0 +1,6 @@
+[
+  {"id": "gewerbeanzeige", "beschreibung": "Gewerbe-Anmeldung, -Ummeldung oder -Abmeldung"},
+  {"id": "rechnung", "beschreibung": "Rechnung oder Gutschrift eines Lieferanten"},
+  {"id": "widerspruch", "beschreibung": "Widerspruch gegen einen Bescheid"},
+  {"id": "antrag_sonstig", "beschreibung": "anderer Antrag an die Verwaltung"}
+]
