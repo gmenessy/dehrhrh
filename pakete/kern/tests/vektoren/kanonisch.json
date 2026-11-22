@@ -1,0 +1,27 @@
+[
+  {
+    "name": "sortierte Schluessel",
+    "eingabe": {"b": 1, "a": 2, "c": {"z": true, "y": null}},
+    "erwartet": "{\"a\":2,\"b\":1,\"c\":{\"y\":null,\"z\":true}}"
+  },
+  {
+    "name": "Umlaute bleiben UTF-8",
+    "eingabe": {"straße": "Müllerstraße 5", "ort": "Köln"},
+    "erwartet": "{\"ort\":\"Köln\",\"straße\":\"Müllerstraße 5\"}"
+  },
+  {
+    "name": "Zahlen",
+    "eingabe": {"ganz": 42, "negativ": -7, "komma": 0.5, "gross": 12345678901234567890, "null_komma": 1.0},
+    "erwartet": "{\"ganz\":42,\"gross\":12345678901234567890,\"komma\":0.5,\"negativ\":-7,\"null_komma\":1.0}"
+  },
+  {
+    "name": "Listen behalten Reihenfolge",
+    "eingabe": [3, "ä", {"b": [], "a": {}}],
+    "erwartet": "[3,\"ä\",{\"a\":{},\"b\":[]}]"
+  },
+  {
+    "name": "Steuerzeichen und Anfuehrungszeichen",
+    "eingabe": {"t": "Zeile1\nZeile2 \"zitiert\" \\"},
+    "erwartet": "{\"t\":\"Zeile1\\nZeile2 \\\"zitiert\\\" \\\\\"}"
+  }
+]

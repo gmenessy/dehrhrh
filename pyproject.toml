@@ -20,6 +20,8 @@ dev = [
     "mypy",
     "PyYAML",
     "types-PyYAML",
+    # Testzertifikate (Implementierung 1.1)
+    "cryptography",
     # nur fuer Integrationstests (Implementierung 1.1)
     "psycopg[binary]",
     "boto3",
@@ -53,6 +55,9 @@ extend-exclude = ["vorhandenes", "docs", "sessions"]
 
 [tool.ruff.lint]
 select = ["S", "B", "E", "F", "I", "UP", "ASYNC", "PL"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["kern", "runner", "taschenmesser", "rag", "modell_attrappe", "dms_attrappe"]
 
 [tool.ruff.lint.per-file-ignores]
 # S-Ausnahmen nur in Tests (Implementierung 8)
