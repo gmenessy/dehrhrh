@@ -51,11 +51,13 @@ make test-int   # Integrationstests gegen Compose
 make down
 ```
 
+CI: `.github/workflows/ci.yml` führt `make check` bei jedem Push und Pull Request aus; `test-int` lässt sich manuell starten (Actions → ci → Run workflow).
+
 Struktur: uv-Workspace mit `pakete/kern`, `dienste/{runner,taschenmesser,rag}`, `werkzeuge/{modell-attrappe,dms-attrappe}`. Image-Vorlage für alle Python-Dienste: `deploy/Dockerfile.python` (`--build-arg PAKET=<paket>`).
 
 | Variable | Wirkung |
 | --- | --- |
 | `POSTGRES_PASSWORT_DATEI` | Datei mit dem Postgres-Passwort (Standard `config/schluessel/postgres.dev`) |
-| `MINIO_IMAGE`, `MC_IMAGE` | MinIO-Server und -Client für Dev (ADR-102) |
+| `MINIO_IMAGE`, `MC_IMAGE` | MinIO-Server und -Client für Dev (ADR-103) |
 | `DEV_BIND` | Adresse der veröffentlichten Dev-Ports (Standard `127.0.0.1`) |
 | `PLATTFORM_TEST_HOST` | Host für Integrationstests (Standard `127.0.0.1`) |

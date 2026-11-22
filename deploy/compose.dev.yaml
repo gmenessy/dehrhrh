@@ -1,4 +1,4 @@
-# Dev-Profil: MinIO statt RZ-S3, Ports standardmaessig nur auf 127.0.0.1 (ADR-101).
+# Dev-Profil: MinIO statt RZ-S3 (ADR-103), Ports standardmaessig nur auf 127.0.0.1 (ADR-102).
 x-hart: &hart
   read_only: true
   cap_drop: [ALL]
@@ -25,7 +25,8 @@ services:
   minio:
     <<: *hart
     profiles: [dev]
-    image: ${MINIO_IMAGE:-minio/minio:RELEASE.2025-09-07T16-13-09Z}
+    # Community-Build, per Digest gepinnt (ADR-103)
+    image: ${MINIO_IMAGE:-pgsty/minio:RELEASE.2026-08-04T00-00-00Z@sha256:b6bfe7239bfc83fb90d31612d9704d86039dd714f7904b3f1ad68f211e602372}
     restart: unless-stopped
     command: ["server", "/data"]
     environment:
@@ -47,7 +48,7 @@ services:
   minio-init:
     <<: *hart
     profiles: [dev]
-    image: ${MC_IMAGE:-minio/mc:RELEASE.2025-08-13T08-35-41Z}
+    image: ${MC_IMAGE:-pgsty/mc:RELEASE.2026-11-12T00-00-00Z@sha256:b532278b7a3747dbab6fe45eebb40a653efa704e6758e24e9d9ec54fc96c1800}
     restart: "no"
     entrypoint: ["/bin/sh", "/init/buckets.sh"]
     environment:
