@@ -2,7 +2,7 @@
 
 | Session | Titel | Status | Datum | ADRs | Bemerkung |
 | --- | --- | --- | --- | --- | --- |
-| S01 | Repository und Werkzeugkette | offen | | | |
+| S01 | Repository und Werkzeugkette | fertig mit offenen Punkten | 2026-11-22 | ADR-100, ADR-101, ADR-102, ADR-103 | MinIO-Integrationstest offen (ADR-102) |
 | S02 | Kernbibliothek | offen | | | |
 | S03 | Identität und Zugriff | offen | | | |
 | S04 | Taschenmesser übernehmen und härten | offen | | | |
@@ -28,3 +28,7 @@ Status: `offen`, `in Arbeit`, `fertig`, `fertig mit offenen Punkten`.
 ## Offene Punkte
 
 (Session, Punkt, Grund, vorgesehen in)
+
+| Session | Punkt | Grund | vorgesehen in |
+| --- | --- | --- | --- |
+| S01 | MinIO-Teil von `tests/integration/test_infrastruktur.py` (Buckets, Lifecycle, Versionierung) nicht ausgeführt; Datenbankteil grün | Images `minio/minio`, `minio/mc` auf Docker Hub nicht mehr verfügbar, Ersatz ist Betreiberentscheidung (ADR-102) | vor S09 (erste S3-Nutzung) |

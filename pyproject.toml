@@ -1,0 +1,84 @@
+[project]
+name = "plattform"
+version = "0.1.0"
+description = "Use-Case-Plattform (MVP), uv-Workspace"
+requires-python = ">=3.13,<3.14"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "kern",
+    "runner",
+    "taschenmesser",
+    "rag",
+    "modell-attrappe",
+    "dms-attrappe",
+    "pytest",
+    "pytest-asyncio",
+    "coverage",
+    "ruff",
+    "mypy",
+    "PyYAML",
+    "types-PyYAML",
+    # nur fuer Integrationstests (Implementierung 1.1)
+    "psycopg[binary]",
+    "boto3",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = [
+    "pakete/kern",
+    "dienste/runner",
+    "dienste/taschenmesser",
+    "dienste/rag",
+    "werkzeuge/modell-attrappe",
+    "werkzeuge/dms-attrappe",
+]
+
+[tool.uv.sources]
+kern = { workspace = true }
+runner = { workspace = true }
+taschenmesser = { workspace = true }
+rag = { workspace = true }
+modell-attrappe = { workspace = true }
+dms-attrappe = { workspace = true }
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+extend-exclude = ["vorhandenes", "docs", "sessions"]
+
+[tool.ruff.lint]
+select = ["S", "B", "E", "F", "I", "UP", "ASYNC", "PL"]
+
+[tool.ruff.lint.per-file-ignores]
+# S-Ausnahmen nur in Tests (Implementierung 8)
+"**/tests/**" = ["S", "PLR2004"]
+
+[tool.mypy]
+python_version = "3.13"
+mypy_path = "pakete/kern/src"
+packages = ["kern"]
+strict = true
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+addopts = ["--import-mode=importlib", "-m", "not integration and not e2e and not sicherheit"]
+testpaths = ["tests", "pakete", "dienste", "werkzeuge"]
+markers = [
+    "integration: gegen Compose-Dienste (make test-int)",
+    "e2e: volle Compose-Umgebung (make e2e)",
+    "sicherheit: Injection-Korpus, Fuzzing, Netzmatrix (make sicherheit)",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["kern", "runner", "taschenmesser", "rag", "modell_attrappe", "dms_attrappe"]
+
+[tool.coverage.report]
+skip_empty = true

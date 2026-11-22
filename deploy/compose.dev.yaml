@@ -1,0 +1,63 @@
+# Dev-Profil: MinIO statt RZ-S3, Ports standardmaessig nur auf 127.0.0.1 (ADR-101).
+x-hart: &hart
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  user: "10001:10001"
+
+networks:
+  aus_zusteller:
+    internal: true         # in Dev kein Weg nach aussen
+  dev_host:
+    internal: false        # nur Dev: Zugriff vom Host fuer Integrationstests
+
+secrets:
+  minio_benutzer:
+    file: ../config/schluessel/minio-benutzer.dev
+  minio_passwort:
+    file: ../config/schluessel/minio-passwort.dev
+
+services:
+  postgres:
+    networks: [intern, dev_host]
+    ports: ["${DEV_BIND:-127.0.0.1}:5432:5432"]
+
+  minio:
+    <<: *hart
+    profiles: [dev]
+    image: ${MINIO_IMAGE:-minio/minio:RELEASE.2025-09-07T16-13-09Z}
+    restart: unless-stopped
+    command: ["server", "/data"]
+    environment:
+      MINIO_ROOT_USER_FILE: /run/secrets/minio_benutzer
+      MINIO_ROOT_PASSWORD_FILE: /run/secrets/minio_passwort
+      MC_CONFIG_DIR: /tmp/.mc
+    secrets: [minio_benutzer, minio_passwort]
+    tmpfs:
+      - /data:uid=10001,gid=10001,size=1g
+      - /tmp:uid=10001,gid=10001
+    networks: [intern, dev_host]
+    ports: ["${DEV_BIND:-127.0.0.1}:9000:9000"]
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  minio-init:
+    <<: *hart
+    profiles: [dev]
+    image: ${MC_IMAGE:-minio/mc:RELEASE.2025-08-13T08-35-41Z}
+    restart: "no"
+    entrypoint: ["/bin/sh", "/init/buckets.sh"]
+    environment:
+      MC_CONFIG_DIR: /tmp/.mc
+    secrets: [minio_benutzer, minio_passwort]
+    volumes:
+      - ./minio:/init:ro
+    tmpfs:
+      - /tmp:uid=10001,gid=10001
+    networks: [intern]
+    depends_on:
+      minio:
+        condition: service_healthy

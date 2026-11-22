@@ -1,0 +1,23 @@
+# Vorlage fuer alle Python-Dienste. Aufruf aus der Wurzel:
+#   docker build -f deploy/Dockerfile.python --build-arg PAKET=runner -t plattform/runner .
+# Build mit uv, Laufzeit ohne Compiler und ohne uv, Benutzer 10001.
+ARG PYTHON_IMAGE=python:3.13-slim
+
+FROM ghcr.io/astral-sh/uv:0.11.32 AS uv
+
+FROM ${PYTHON_IMAGE} AS bau
+ARG PAKET
+COPY --from=uv /uv /usr/local/bin/uv
+# venv liegt bereits am Zielpfad, damit Pfade in Skripten stimmen
+ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never UV_PROJECT_ENVIRONMENT=/app/.venv
+WORKDIR /quelle
+COPY . .
+RUN test -n "${PAKET}" && uv sync --frozen --no-dev --no-editable --package "${PAKET}"
+
+FROM ${PYTHON_IMAGE} AS laufzeit
+ENV PATH="/app/.venv/bin:${PATH}" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+RUN groupadd --gid 10001 plattform \
+ && useradd --uid 10001 --gid 10001 --no-create-home --shell /usr/sbin/nologin plattform
+WORKDIR /app
+COPY --from=bau --chown=10001:10001 /app/.venv /app/.venv
+USER 10001:10001
