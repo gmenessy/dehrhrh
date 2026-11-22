@@ -3,7 +3,7 @@
 | Session | Titel | Status | Datum | ADRs | Bemerkung |
 | --- | --- | --- | --- | --- | --- |
 | S01 | Repository und Werkzeugkette | fertig | 2026-11-22 | ADR-100, ADR-101, ADR-102, ADR-103, ADR-104 | GitHub Actions statt GitLab-CI; MinIO aus Community-Build |
-| S02 | Kernbibliothek | offen | | | |
+| S02 | Kernbibliothek | fertig | 2026-11-22 | ADR-105, ADR-106 | `kern` 97 % Abdeckung; `Server`-Header am Eingang (offener Punkt) |
 | S03 | Identität und Zugriff | offen | | | |
 | S04 | Taschenmesser übernehmen und härten | offen | | | |
 | S05 | Modellzugang und Modell-Attrappe | offen | | | |
@@ -29,5 +29,7 @@ Status: `offen`, `in Arbeit`, `fertig`, `fertig mit offenen Punkten`.
 
 (Session, Punkt, Grund, vorgesehen in)
 
-(keine)
+| Session | Punkt | Grund | vorgesehen in |
+| --- | --- | --- | --- |
+| S02 | `deploy/caddy/Caddyfile` mit `header -Server` | Granian setzt `server: granian` fest (ADR-105) | Session, die den Eingang (Caddy) anlegt, spätestens S20 |
 

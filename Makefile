@@ -20,6 +20,8 @@ typ:
 test:
 	uv run coverage run -m pytest
 	uv run coverage report
+	# Mindestabdeckung kern (Implementierung 9)
+	uv run coverage report --include='pakete/kern/*' --fail-under=85 > /dev/null
 
 check: lint typ test
 

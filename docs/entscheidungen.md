@@ -43,3 +43,15 @@ Session: S01 · Datum: 2026-11-22
 Kontext: `x-hart` setzt `read_only` und Benutzer 10001; die offiziellen Images erwarten eigene Benutzer und beschreibbare Verzeichnisse.
 Entscheidung: PostgreSQL mit `PGDATA=/var/lib/postgresql/data/pgdata` (Unterverzeichnis im Volume, gehört 10001) und `tmpfs` für Socket und `/tmp`. MinIO legt in Dev seine Daten auf `tmpfs` (`uid=10001`); Buckets entstehen bei jedem `make up` neu durch `minio-init`. Geheimnisse als Dateien über Compose-Secrets, erzeugt von `make setup` in `config/schluessel/` (nicht im Git).
 Folgen: Dev-Objekte überleben `make down` nicht; Datenbankdaten schon (Volume `postgres-daten`).
+
+### ADR-105: `Server`-Header von Granian
+Session: S02 · Datum: 2026-11-22
+Kontext: Implementierung 7 verlangt Antworten ohne `Server`-Header. `kern.app` entfernt den Header der Anwendung, Granian 2.8.9 setzt aber danach fest `server: granian` und bietet dafür keine Option.
+Entscheidung: Der Header wird am Eingang entfernt (Caddy `header -Server`), über den jeder externe Aufruf läuft. Intern bleibt er stehen; er verrät nur den Servernamen, keine Version.
+Folgen: Das Caddyfile muss `header -Server` enthalten (offener Punkt). Bietet Granian später eine Option, wird sie in `kern.server` gesetzt.
+
+### ADR-106: Ereignisnamen als Bezeichner, Fehler ausserhalb des Starlette-Handlers
+Session: S02 · Datum: 2026-11-22
+Kontext: Die Allowlist aus Implementierung 4.1 filtert Felder, aber die Log-Nachricht selbst (Feld `ereignis`) könnte Freitext mit Inhalten tragen. Ausserdem wirft der Exception-Handler von Starlette die Ausnahme nach der Antwort erneut; der ASGI-Server protokolliert dann Ausnahmetext und Traceback.
+Entscheidung: `ereignis` muss `[a-z0-9_.]{1,64}` entsprechen, sonst steht `ereignis_ungueltig` im Log; Argumente werden nie eingesetzt, Ausnahmen nur mit Typname (`fehler_code`). Unerwartete Ausnahmen fängt `kern.fehler.FehlerMiddleware` innerhalb der App ab und antwortet `INTERN`, ohne die Ausnahme weiterzureichen.
+Folgen: Logs fremder Bibliotheken (z. B. Granian-Startmeldungen, httpx) erscheinen nur als `ereignis_ungueltig`. Dienste loggen ausschliesslich Ereignisbezeichner mit Feldern aus der Allowlist.
