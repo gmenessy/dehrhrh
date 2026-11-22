@@ -1,0 +1,53 @@
+# Basis aller Umgebungen. Netze nach Architektur 5.2, Ports nach 5.3.
+name: plattform
+
+x-hart: &hart
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  user: "10001:10001"
+
+networks:
+  rand:
+    internal: false
+  idp:
+    internal: true
+  intern:
+    internal: true
+  parse:
+    internal: true
+  modell:
+    internal: true
+  aus_zusteller:
+    internal: false        # im Betrieb nach aussen; Dev setzt true
+  beobachtung:
+    internal: true
+
+volumes:
+  postgres-daten:
+
+secrets:
+  postgres_passwort:
+    file: ${POSTGRES_PASSWORT_DATEI:-../config/schluessel/postgres.dev}
+
+services:
+  postgres:
+    <<: *hart
+    image: postgres:17.12
+    restart: unless-stopped
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_passwort
+    secrets: [postgres_passwort]
+    volumes:
+      - postgres-daten:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    tmpfs:
+      - /var/run/postgresql:uid=10001,gid=10001
+      - /tmp:uid=10001,gid=10001
+    networks: [intern]
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres", "-d", "plattform"]
+      interval: 5s
+      timeout: 3s
+      retries: 20

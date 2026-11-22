@@ -40,3 +40,24 @@ Nach S13 ist die Nutzung **in der Anwendung** vorführbar, nach S18 **Ende-zu-En
 ## Voraussetzungen der Umgebung
 
 Docker mit Compose v2, `uv`, Python 3.13, GNU Make. Für echte Modelle ein GPU-Host mit vLLM (nicht nötig für Tests: die Modell-Attrappe ersetzt ihn).
+
+## Entwicklung (ab S01)
+
+```
+make setup      # uv sync, Dev-Geheimnisse nach config/schluessel/
+make check      # ruff, mypy (strikt für kern), Unit-Tests mit Abdeckung
+make up         # postgres und minio (Dev-Profil), minio-init legt Buckets an
+make test-int   # Integrationstests gegen Compose
+make down
+```
+
+CI: `.github/workflows/ci.yml` führt `make check` bei jedem Push und Pull Request aus; `test-int` lässt sich manuell starten (Actions → ci → Run workflow).
+
+Struktur: uv-Workspace mit `pakete/kern`, `dienste/{runner,taschenmesser,rag}`, `werkzeuge/{modell-attrappe,dms-attrappe}`. Image-Vorlage für alle Python-Dienste: `deploy/Dockerfile.python` (`--build-arg PAKET=<paket>`).
+
+| Variable | Wirkung |
+| --- | --- |
+| `POSTGRES_PASSWORT_DATEI` | Datei mit dem Postgres-Passwort (Standard `config/schluessel/postgres.dev`) |
+| `MINIO_IMAGE`, `MC_IMAGE` | MinIO-Server und -Client für Dev (ADR-103) |
+| `DEV_BIND` | Adresse der veröffentlichten Dev-Ports (Standard `127.0.0.1`) |
+| `PLATTFORM_TEST_HOST` | Host für Integrationstests (Standard `127.0.0.1`) |

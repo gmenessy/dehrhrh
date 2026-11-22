@@ -2,7 +2,7 @@
 
 | Session | Titel | Status | Datum | ADRs | Bemerkung |
 | --- | --- | --- | --- | --- | --- |
-| S01 | Repository und Werkzeugkette | offen | | | |
+| S01 | Repository und Werkzeugkette | fertig | 2026-11-22 | ADR-100, ADR-101, ADR-102, ADR-103, ADR-104 | GitHub Actions statt GitLab-CI; MinIO aus Community-Build |
 | S02 | Kernbibliothek | offen | | | |
 | S03 | Identität und Zugriff | offen | | | |
 | S04 | Taschenmesser übernehmen und härten | offen | | | |
@@ -28,3 +28,6 @@ Status: `offen`, `in Arbeit`, `fertig`, `fertig mit offenen Punkten`.
 ## Offene Punkte
 
 (Session, Punkt, Grund, vorgesehen in)
+
+(keine)
+

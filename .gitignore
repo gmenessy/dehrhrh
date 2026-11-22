@@ -221,3 +221,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Plattform
+config/schluessel/*
+!config/schluessel/*.pub.dev
+deploy/pki/out/
+.uv-cache/
